@@ -1,0 +1,47 @@
+{
+  "name": "express-sms-management-api",
+  "version": "1.0.0",
+  "description": "A simple api designed to handle SMS communication among 2 parties involved in the communication process",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server/index.js",
+    "test": "echo 'no tests'",
+    "migrations": "sequelize db:migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katunold/express-sms-management-api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "sequelize",
+    "RESTFUL",
+    "Docker"
+  ],
+  "author": "Arnold Katumba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katunold/express-sms-management-api/issues"
+  },
+  "homepage": "https://github.com/katunold/express-sms-management-api#readme",
+  "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.20.0",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.1",
+    "sequelize": "^5.14.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1",
+    "sequelize-cli": "^5.5.0"
+  }
+}

@@ -1,2 +1,2 @@
-# express-sms-management-api
+# express-sms-management-api [![Build Status](https://travis-ci.org/katunold/express-sms-management-api.svg?branch=develop)](https://travis-ci.org/katunold/express-sms-management-api) [![Maintainability](https://api.codeclimate.com/v1/badges/f45823ea87a02c01209c/maintainability)](https://codeclimate.com/github/katunold/express-sms-management-api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f45823ea87a02c01209c/test_coverage)](https://codeclimate.com/github/katunold/express-sms-management-api/test_coverage) 
 A simple api designed to handle SMS communication among 2 parties involved in the communication process 
