@@ -7,35 +7,35 @@ export const routes = router => {
     /**
      * route to handle user signUpx
      */
-    router.route('/signup').post(Validations.signUpValidations(), SignUp.signUp);
+    router.route('/signup').post(Validations.validity('sign-up'), SignUp.signUp);
 
     /**
      * route to handle user login
      */
-    router.route('login').post(Login.login);
+    router.route('/login').post(Validations.validity('login'),Login.login);
 
     /**
      * route to handle email confirmation
      */
-    router.route('confirmation/:token')
+    router.route('/confirmation/:token')
       .get(SignUp.verifyAccount);
 
     /**
      * route to resend the email confirmation link
      */
-    router.route('users/resend')
+    router.route('/users/resend')
       .post(SignUp.resendVerificationLink);
 
     /**
      * route to request for password reset link
      */
-    router.route('reset-password')
+    router.route('/reset-password')
       .post(PasswordReset.passwordReset);
 
     /**
      * change password
      */
-    router.route('reset/:token')
+    router.route('/reset/:token')
       .post(PasswordReset.editPassword);
 
 };

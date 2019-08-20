@@ -15,3 +15,8 @@ exports.signUpDataWithInvalidEmail = {
     userName: 'arnold',
     password: '1qaz2wsx'
 };
+
+exports.loginData = {
+    contactNumber: '0700000000',
+    password: '1qaz2wsx'
+};
