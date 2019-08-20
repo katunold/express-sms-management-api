@@ -19,15 +19,12 @@ if (env !== 'development') {
     port: config.port,
     operatorsAliases: false,
     dialect: config.dialect,
-    logging: () => {},
-    define: {
-      freezeTableName: true,
-    },
+    logging: () => {}
   })
 }
 
 const db = {
-  Contact: sequelize.import('./contact'),
+  User: sequelize.import('./User'),
   Message: sequelize.import('./message')
 };
 
