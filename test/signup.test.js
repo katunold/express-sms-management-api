@@ -1,4 +1,3 @@
-import sinonChai from 'sinon-chai';
 import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from "../server";
@@ -6,7 +5,6 @@ import mockData from './helpers/mock-data';
 import db from "../server/models";
 
 chai.use(chaihttp);
-chai.use(sinonChai);
 
 const { expect } = chai;
 

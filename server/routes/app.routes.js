@@ -2,6 +2,8 @@ import { PasswordReset } from "../controllers/password-reset.controllers";
 import { SignUp } from "../controllers/signup.controllers";
 import { Login } from "../controllers/login.controllers";
 import Validations from "../utils/validations";
+import {MessageController} from "../controllers/message.controllers";
+import {hasAuthorization, requireSignIn} from "../utils/jwt";
 
 export const routes = router => {
     /**
@@ -38,5 +40,10 @@ export const routes = router => {
     router.route('/reset/:token')
       .post(PasswordReset.editPassword);
 
+    /**
+     * send message route
+     */
+    router.route('/send')
+      .post(Validations.validity('send-message'), requireSignIn, hasAuthorization, MessageController.sendMessage);
 };
 
