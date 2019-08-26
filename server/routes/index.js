@@ -1,5 +1,5 @@
 import router from 'express-promise-router';
-import { routes } from "./user.routes";
+import { routes } from "./app.routes";
 
 export const appRoutes = () => {
     const route = router();
