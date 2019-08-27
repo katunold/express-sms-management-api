@@ -62,4 +62,18 @@ export class MessageController {
             return res.status(200).send({ message: 'Sorry, your inbox is currently empty' })
         })
     };
+
+    static retrieveSpecificMessage = (req, res) => {
+        dbConnection.Message.findOne({
+            where: {
+                receiverId: req.auth.sub,
+                id: req.params.messageId
+            }
+        }).then(result => {
+            if (!!result) {
+                return res.status(200).send({ messages: result });
+            }
+            return res.status(404).send({ error: `A message with id ${req.params.messageId} was not found` });
+        })
+    }
 }

@@ -57,5 +57,11 @@ export const routes = router => {
      */
     router.route('/retrieve/:senderId')
       .get(requireSignIn, MessageController.retrieveMessagesFromSpecificSender);
+
+    /**
+     * retrieve specific message
+     */
+    router.route('/retrieve/message/:messageId')
+      .get(requireSignIn, MessageController.retrieveSpecificMessage);
 };
 

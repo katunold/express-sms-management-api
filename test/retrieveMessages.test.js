@@ -13,7 +13,6 @@ const { expect } = chai;
 describe('Retrieve route', () => {
 
     let contact;
-    let user;
     let access;
 
     afterEach((done) => {
@@ -61,5 +60,13 @@ describe('Retrieve route', () => {
           .set('Authorization', `Bearer ${access.body.accessToken}`);
         expect(response).to.have.status(200);
         expect(response.body).to.have.property('message').to.be.equal('Sorry, your inbox is currently empty');
+    });
+
+    it('should return a specific message', async () => {
+        await sendMessage(contact);
+        const response = await chai.request(app)
+          .get('/api/v1/retrieve/message/1')
+          .set('Authorization', `Bearer ${access.body.accessToken}`);
+        expect(response).to.have.status(404);
     });
 });
