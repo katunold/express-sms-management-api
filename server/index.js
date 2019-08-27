@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // All routes
-app.use('/api/v1/', appRoutes());
+app.use('/api/v1', appRoutes());
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
         res.status(401).send({error : `${err.name} :  ${err.message}`})

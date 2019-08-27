@@ -45,5 +45,11 @@ export const routes = router => {
      */
     router.route('/send')
       .post(Validations.validity('send-message'), requireSignIn, hasAuthorization, MessageController.sendMessage);
+
+    /**
+     * retrieve messages route
+     */
+    router.route('/retrieve')
+      .get(requireSignIn, MessageController.retrieveMessages);
 };
 

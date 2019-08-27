@@ -14,6 +14,15 @@ const signUp = async () => {
     return newUser.body.contact
 };
 
+const login = async (contact) => {
+    return chai.request(app)
+      .post('/api/v1/login')
+      .send({
+          contactNumber: contact,
+          password: '1qaz2wsx'
+      });
+};
+
 const signUpAndLogin = async () => {
     const userSignUp = await chai.request(app)
       .post('/api/v1/signup')
@@ -33,4 +42,12 @@ const signUpAndLogin = async () => {
     return { userLogin, userSignUp };
 };
 
-export { signUp, signUpAndLogin }
+const sendMessage = async (contact) => {
+    const user = await signUpAndLogin();
+    await chai.request(app)
+      .post('/api/v1/send')
+      .set('Authorization', `Bearer ${user.userLogin.body.accessToken}`)
+      .send({ receiverId: contact, textMessage: 'testing a test' })
+};
+
+export { signUp, signUpAndLogin, sendMessage, login }
