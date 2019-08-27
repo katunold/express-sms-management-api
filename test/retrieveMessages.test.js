@@ -45,4 +45,21 @@ describe('Retrieve route', () => {
               done();
           });
     });
+
+    it('should return messages from a specific sender', async () => {
+        const senderId = await sendMessage(contact);
+        const response = await chai.request(app)
+          .get(`/api/v1/retrieve/${senderId}`)
+          .set('Authorization', `Bearer ${access.body.accessToken}`);
+        expect(response).to.have.status(200);
+    });
+
+    it('should return no message in-case no messages are received from a specific user', async () => {
+        const senderId = await sendMessage(contact);
+        const response = await chai.request(app)
+          .get(`/api/v1/retrieve/0735993508`)
+          .set('Authorization', `Bearer ${access.body.accessToken}`);
+        expect(response).to.have.status(200);
+        expect(response.body).to.have.property('message').to.be.equal('Sorry, your inbox is currently empty');
+    });
 });

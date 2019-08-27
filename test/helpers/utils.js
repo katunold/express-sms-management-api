@@ -47,7 +47,8 @@ const sendMessage = async (contact) => {
     await chai.request(app)
       .post('/api/v1/send')
       .set('Authorization', `Bearer ${user.userLogin.body.accessToken}`)
-      .send({ receiverId: contact, textMessage: 'testing a test' })
+      .send({ receiverId: contact, textMessage: 'testing a test' });
+    return user.userSignUp.body.contact;
 };
 
 export { signUp, signUpAndLogin, sendMessage, login }
