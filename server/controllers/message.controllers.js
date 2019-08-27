@@ -35,7 +35,18 @@ export class MessageController {
         });
     };
 
-    static retrieveMessages = (req, res) => {};
+    static retrieveMessages = (req, res) => {
+        dbConnection.Message.findAll({
+            where: {
+                receiverId: req.auth.sub
+            }
+        }).then( result => {
+            if (result.length) {
+                return res.status(200).send({ messages: result });
+            }
+            return res.status(200).send({ message: 'Sorry, your inbox is currently empty' })
+        }).catch( e => console.log(e));
+    };
 
     static retrieveSingleMessage = (req, res) => {};
 }
