@@ -31,6 +31,7 @@ export class SignUp {
             }
             const userData = await Actions.addData( dbConnection.User, Object.assign({}, req.body, contact), [
                 "email",
+                "isAdmin",
                 "userName",
                 "contactNumber",
                 "password"

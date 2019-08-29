@@ -4,6 +4,13 @@ exports.signUpData = {
     password: '1qaz2wsx'
 };
 
+exports.adminSignUpData = {
+    email: 'test@mail.com',
+    userName: 'test',
+    isAdmin: true,
+    password: '1qaz2wsx'
+};
+
 exports.signUpDataWithMissingFields = {
     email: 'katumba@mail.com',
     userName: '',
