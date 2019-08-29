@@ -9,7 +9,7 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 //Test DB connection
-if (process.env.NODE_ENV === 'deve') {
+if (process.env.NODE_ENV === 'development') {
     db.sequelize.authenticate()
       .then(()=> {
           console.log(`successfully connected to the ${process.env.DB_DEV_NAME} `);

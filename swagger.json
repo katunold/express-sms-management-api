@@ -1,0 +1,504 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "termsOfService": "http://swagger.io/terms/",
+    "description": "A simple SMS API",
+    "contact": {
+      "name": "Arnold Katumba",
+      "email": "katunold94@gmail.com"
+    },
+    "title": "sms management api",
+    "version": "1.0"
+  },
+  "basePath": "/api/v1",
+  "produces": ["application/json"],
+  "consumes": ["application/json"],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/signup": {
+      "post": {
+        "description": "Creates a new User account",
+        "consumes": ["application/json"],
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/parameters/signup"
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/definitions/Created"
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "422": {
+            "$ref": "#/definitions/Unprocessable"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Creates a new User account",
+        "consumes": ["application/json"],
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/parameters/login"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/definitions/Success"
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "422": {
+            "$ref": "#/definitions/Unprocessable"
+          }
+        }
+      }
+    },
+    "/send": {
+      "post": {
+        "description": "Creates and send message",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "$ref": "#/parameters/send"
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/definitions/Created"
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/definitions/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/retrieve": {
+      "get": {
+        "description": "Retrieve messages in the users inbox",
+        "consumes": ["application/json"],
+        "responses": {
+          "200": {
+            "$ref": "#/definitions/MessageList"
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/definitions/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/retrieve/{senderId}": {
+      "get": {
+        "description": "return all messages from a specific sender",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "senderId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All messages from a specific contact in the users inbox",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "record": {
+                  "$ref": "#/definitions/messages"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/definitions/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/retrieve/message/{messageId}": {
+      "get": {
+        "description": "Retrieve a single message",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "messageId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieve a specific message",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "record": {
+                  "$ref": "#/definitions/message"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/definitions/UnauthorizedError"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "signup": {
+      "in": "body",
+      "name": "user",
+      "description": "User data",
+      "schema": {
+        "type": "object",
+        "required": [
+          "userName",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        },
+        "example": {
+          "userName": "Arnold",
+          "email": "arnold@mail.com",
+          "password": "my_password"
+        }
+      }
+    },
+    "login": {
+      "in": "body",
+      "name": "Login credentials",
+      "description": "User data",
+      "schema": {
+        "type": "object",
+        "required": [
+          "contactNumber",
+          "password"
+        ],
+        "properties": {
+          "contactNumber": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        },
+        "example": {
+          "contactNumber": "0706180659",
+          "password": "my_secret"
+        }
+      }
+    },
+    "send": {
+      "in": "body",
+      "name": "Message Details",
+      "description": "Message data",
+      "schema": {
+        "type": "object",
+        "required": [
+          "message",
+          "contact"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "contact": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "message": "I am sending this",
+          "contact": "0736386640"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "readOnly": true
+        },
+        "userName": {
+          "type": "string",
+          "readOnly": true
+        },
+        "contactNumber": {
+          "type": "number",
+          "readOnly": true
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "readOnly": true
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "example": {
+        "email": "arnold@gmail.com",
+        "userName": "Arnold",
+        "contact": "0706180675",
+        "password": "this_is_very_secret",
+        "updatedAt": "2019-05-24T12:58:43.702Z",
+        "createdAt": "2019-05-24T12:58:43.702Z"
+      }
+    },
+    "messages": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true,
+          "format": "uuid"
+        },
+        "textMessage": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "receiverId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "senderId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "example": [
+        {
+          "id": "1",
+          "receiverId": "0706180670",
+          "senderId": "0700000000",
+          "message": "I am sending this",
+          "status": "Delivered",
+          "updatedAt": "2019-05-20T08:39:09.440Z",
+          "createdAt": "2019-05-20T08:39:09.440Z"
+        },
+        {
+          "id": "2",
+          "receiverId": "0706180670",
+          "senderId": "0700000000",
+          "message": "I am sending this",
+          "status": "Delivered",
+          "updatedAt": "2019-05-20T08:39:09.440Z",
+          "createdAt": "2019-05-20T08:39:09.440Z"
+        },
+        {
+          "id": "3",
+          "receiverId": "0706180670",
+          "senderId": "0700000000",
+          "message": "I am sending this",
+          "status": "Delivered",
+          "updatedAt": "2019-05-20T08:39:09.440Z",
+          "createdAt": "2019-05-20T08:39:09.440Z"
+        }
+      ]
+    },
+    "message": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true,
+          "format": "uuid"
+        },
+        "textMessage": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "receiverId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "senderId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "example": {
+        "id": "1",
+        "receiverId": "0706180670",
+        "senderId": "0700000000",
+        "message": "I am sending this",
+        "status": "Delivered",
+        "updatedAt": "2019-05-20T08:39:09.440Z",
+        "createdAt": "2019-05-20T08:39:09.440Z"
+      }
+    },
+    "CreateSms": {
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "record": {
+          "$ref": "#/definitions/Sms"
+        }
+      }
+    },
+    "MessageList": {
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "records": {
+          "type": "object",
+          "properties": {
+            "sent": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message"
+              }
+            },
+            "received": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Login": {
+      "readOnly": true,
+      "type": "object",
+      "description": "Users Object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "string"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": {
+        "success": "Successfully logged in",
+        "token": "this_is_very_secret_JWT_TOKEN"
+      }
+    },
+    "signup": {
+      "readOnly": true,
+      "type": "object",
+      "description": "Signup Object",
+      "properties": {
+        "record": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "example": {
+        "record": {
+          "id": "b6df97f0-33cb-4b47-bb2b-8611fb918a75",
+          "isAdmin": false,
+          "username": "reiosantos1",
+          "contact": "1234567890",
+          "password": "$2b$10$kjqtWaHMnc6I4DNz2DG5QO1MYRA3u/hJ10WkUCIcMIYLBW2EptOZq",
+          "updatedAt": "2019-05-24T17:47:12.664Z",
+          "createdAt": "2019-05-24T17:47:12.664Z"
+        }
+      }
+    },
+    "Success": {"description": "Ok"},
+    "Created": {"description": "Successfully created"},
+    "BadRequestError": {
+      "description": "Error: Bad Request"
+    },
+    "Unprocessable": {"description": "Unprocessable Entity"},
+    "UnauthorizedError": {
+      "description": "Access token is missing or invalid",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ]
+}
