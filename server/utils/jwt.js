@@ -31,3 +31,15 @@ export const hasAuthorization = (req, res, next) => {
     }
     next();
 };
+
+/**
+ * function to check for admin authority
+ */
+export const hasAdminAuthority = (req, res, next) => {
+    if (req.auth.isAdmin) {
+        return next();
+    }
+    return res.status(403).send({
+        error: 'User not authorised for this action'
+    });
+};

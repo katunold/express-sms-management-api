@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from "../server";
 import {signUp, signUpAndLogin} from "./helpers/utils";
+import {signUpData} from "./helpers/mock-data";
 
 chai.use(chaihttp);
 
@@ -21,7 +22,7 @@ describe('Send route', () => {
 
     beforeEach(async () => {
         contact = await signUp();
-        user = await signUpAndLogin();
+        user = await signUpAndLogin(signUpData);
     });
 
     it('should send a message', (done) => {

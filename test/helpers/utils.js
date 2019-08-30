@@ -1,5 +1,6 @@
 import chai from "chai";
 import app from "../../server";
+import {signUpData} from "./mock-data";
 
 const signUp = async () => {
 
@@ -23,14 +24,10 @@ const login = async (contact) => {
       });
 };
 
-const signUpAndLogin = async () => {
+const signUpAndLogin = async (userData) => {
     const userSignUp = await chai.request(app)
       .post('/api/v1/signup')
-      .send({
-          email: 'katumba@gmail.com',
-          userName: 'katumba',
-          password: '1qaz2wsx'
-      });
+      .send(userData);
 
     const userLogin = await chai.request(app)
       .post('/api/v1/login')
@@ -43,7 +40,7 @@ const signUpAndLogin = async () => {
 };
 
 const sendMessage = async (contact) => {
-    const user = await signUpAndLogin();
+    const user = await signUpAndLogin(signUpData);
     await chai.request(app)
       .post('/api/v1/send')
       .set('Authorization', `Bearer ${user.userLogin.body.accessToken}`)
