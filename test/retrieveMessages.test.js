@@ -31,7 +31,6 @@ describe('Retrieve route', () => {
         const response = await chai.request(app)
           .get('/api/v1/retrieve')
           .set('Authorization', `Bearer ${access.body.accessToken}`);
-
         expect(response).to.have.status(200);
     });
 

@@ -3,7 +3,8 @@ import { SignUp } from "../controllers/signup.controllers";
 import { Login } from "../controllers/login.controllers";
 import Validations from "../utils/validations";
 import {MessageController} from "../controllers/message.controllers";
-import {hasAuthorization, requireSignIn} from "../utils/jwt";
+import {hasAdminAuthority, hasAuthorization, requireSignIn} from "../utils/jwt";
+import {Users} from "../controllers/users.controllers";
 
 export const routes = router => {
     /**
@@ -63,5 +64,11 @@ export const routes = router => {
      */
     router.route('/retrieve/message/:messageId')
       .get(requireSignIn, MessageController.retrieveSpecificMessage);
+
+    /**
+     * get all users
+     */
+    router.route('/users')
+      .get(requireSignIn, hasAdminAuthority, Users.retrieveUsers );
 };
 

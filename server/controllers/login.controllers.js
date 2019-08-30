@@ -22,7 +22,10 @@ export class Login {
                 return res.status(404).send({ errors: "User doesn't exist" })
             }
             return res.status(200)
-              .send({ success: "Successfully logged in", accessToken: signToken(result.dataValues.contactNumber)})
+              .send(
+                {
+                    success: "Successfully logged in",
+                    accessToken: signToken(result.dataValues.contactNumber, result.dataValues.isAdmin )})
         }).catch( error => console.log(error));
     };
 
