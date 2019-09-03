@@ -70,5 +70,8 @@ export const routes = router => {
      */
     router.route('/users')
       .get(requireSignIn, hasAdminAuthority, Users.retrieveUsers );
+
+    router.route('/users/:contactId')
+      .delete(requireSignIn, hasAdminAuthority, Users.deleteUser );
 };
 
