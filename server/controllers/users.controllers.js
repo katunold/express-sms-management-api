@@ -16,4 +16,6 @@ export class Users {
             return res.status(500).send({error: error});
         })
     };
+
+    static deleteUser = (req, res) => {};
 }
