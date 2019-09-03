@@ -165,6 +165,46 @@
           }
         }
       }
+    },
+    "/users": {
+      "get": {
+        "description": "Retrieve all users currently signed up",
+        "consumes": ["application/json"],
+        "responses": {
+          "200": {
+            "$ref": "#/definitions/Success"
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/definitions/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/definitions/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/users/{contactId}": {
+      "delete": {
+        "description": "Delete a specific user account",
+        "consumes": ["application/json"],
+        "responses": {
+          "200": {
+            "$ref": "#/definitions/Success"
+          },
+          "400": {
+            "$ref": "#/definitions/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/definitions/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/definitions/ForbiddenError"
+          }
+        }
+      }
     }
   },
   "parameters": {
@@ -479,6 +519,7 @@
       "description": "Error: Bad Request"
     },
     "Unprocessable": {"description": "Unprocessable Entity"},
+    "ForbiddenError": {"description": "Forbidden"},
     "UnauthorizedError": {
       "description": "Access token is missing or invalid",
       "type": "object",

@@ -17,5 +17,17 @@ export class Users {
         })
     };
 
-    static deleteUser = (req, res) => {};
+    static deleteUser =  (req, res) => {
+        const { contactId } = req.params;
+        dbConnection.User.destroy({
+            where: {
+                contactNumber: contactId
+            }
+        }).then( result => {
+            return !!result
+              ? res.status(204).send({msg: `User with contactId ${contactId} has been deleted successfully`})
+              : res.status(200).send({msg: `User with contactId ${contactId} does not exist`});
+        });
+
+    };
 }

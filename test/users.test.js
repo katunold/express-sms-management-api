@@ -34,4 +34,20 @@ describe('Users route', () => {
           .set('Authorization', `Bearer ${token.userLogin.body.accessToken}`);
         expect(response).to.have.status(403);
     });
+
+    it('should return an error message when the user to be deleted does not exist', async () => {
+        token = await signUpAndLogin(adminSignUpData);
+        const response = await chai.request(app)
+          .delete('/api/v1/users/0706180670')
+          .set('Authorization', `Bearer ${token.userLogin.body.accessToken}`);
+        expect(response.body).to.have.property('msg').to.be.equal('User with contactId 0706180670 does not exist');
+    });
+
+    it('should delete an existing user account', async () => {
+        token = await signUpAndLogin(adminSignUpData);
+        const response = await chai.request(app)
+          .delete(`/api/v1/users/${token.userSignUp.body.contact}`)
+          .set('Authorization', `Bearer ${token.userLogin.body.accessToken}`);
+        expect(response).to.have.status(204)
+    });
 });
