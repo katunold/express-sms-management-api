@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  # PostgreSQL
+  postgres:
+    container_name: sms-database
+    image: postgres:latest
+    environment:
+      - "POSTGRES_USER=${DB_USER_NAME}"
+      - "POSTGRES_DB=${DB_DEV_NAME}"
+      - "POSTGRES_PASSWORD=${DB_PASSWORD}"
+    ports:
+      - "5432:5432"
+
+  # Backend
+  sms-management-api:
+    env_file:
+      - ./.env
+    container_name: sms-management-api
+    image: katunold/sms-api
+    working_dir: /express-sms-management-api
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/server
