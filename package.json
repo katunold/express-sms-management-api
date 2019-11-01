@@ -41,7 +41,7 @@
     "lodash": "latest",
     "nodemon": "^1.19.1",
     "pg": "^7.12.1",
-    "sequelize": "^5.14.0",
+    "sequelize": "^5.15.1",
     "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
